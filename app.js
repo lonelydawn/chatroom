@@ -29,7 +29,7 @@ app.use(route.get('/*',function * (req, res) {
     yield * sendfile.call(this, path.join(__dirname,'index.html'))
 }))
 
-app.listen(8080)
-console.log('listening at port 8080!')
+app.listen(3000)
+console.log('listening at port 3000!')
 
 module.exports = app
