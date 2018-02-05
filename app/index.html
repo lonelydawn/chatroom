@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     <title>Chat Room</title>
 </head>
 <body>
@@ -9,17 +10,7 @@
     <div class="chat-room">
         <div class="send-to">
             <h2>Send To</h2>
-            <ul class="contact-list">
-                <li class="contact-list-item is-active">
-                    <span class="contact-name">All</span>
-                </li>
-                <li class="contact-list-item">
-                    <span class="contact-name">Jackson</span>
-                </li>
-                <li class="contact-list-item">
-                    <span class="contact-name">John</span>
-                </li>
-            </ul>
+            <ul id="contact" class="contact-list"></ul>
         </div>
         <div class="conversation">
             <div class="header">
@@ -27,9 +18,7 @@
                 <input id="nickname" type="text" placeholder="Pick a nickname."/>
             </div>
             <div class="dialog">
-                <div class="dialog-content">
-
-                </div>
+                <div id="content" class="dialog-content"></div>
                 <div class="dialog-toolbox">
                     <button class="btn-express cursor-forbid">☺</button>
                 </div>
@@ -42,26 +31,12 @@
                         <small>email - lonelydawn@sina.com</small>
                     </div>
                     <div class="btn-group">
-                        <button class="btn-send">Send</button>
+                        <button id="send" class="btn-send">Send</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--<div id="root">-->
-    <!--<div class="header">-->
-        <!--<h3>&nbsp;&nbsp;Chat Room</h3>-->
-    <!--</div>-->
-    <!--<div id="content" class="content"></div>-->
-    <!--<div class="toolbar">-->
-        <!--<div class="inline-block right">-->
-            <!--<button id="sendBtn" class="btn bg-blue">发送</button>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="key-input">-->
-        <!--<textarea id="keyInput" placeholder="请输入聊天内容. . . "></textarea>-->
-    <!--</div>-->
-<!--</div>-->
 </body>
 </html>

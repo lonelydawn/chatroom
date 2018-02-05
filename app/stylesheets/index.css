@@ -106,7 +106,8 @@ html,body {
     background-color: #fff;
 }
 .dialog-content {
-    height: 360px;
+    padding: 5px 8px;
+    height: 350px;
     overflow-y: scroll;
     border-bottom: 2px solid #8a8a8a;
 }
@@ -158,7 +159,7 @@ html,body {
     height: 28px;
     outline: none;
     border-radius: 3px;
-    border: 1px solid transparent;
+    border: 1px solid #999;
     text-align: center;
     transition: all 150ms linear;
 }
@@ -166,4 +167,23 @@ html,body {
     color: #333;
     border-color: #333;
     background-color: #ccc;
+}
+.record-item {
+    cursor: default;
+}
+.record-label {
+    font-size: 12px;
+    line-height: 20px;
+}
+.record-text {
+    font-size: 16px;
+    color: #555;
+    line-height: 26px;
+    text-indent: 4px;
+}
+.color-deep-blue {
+    color: #0000ff;
+}
+.color-blue {
+    color: #0d83cb;
 }
