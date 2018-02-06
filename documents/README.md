@@ -37,7 +37,7 @@
 
 ### 原型图
 
-![ChatRoomPrototype](.\ChatRoomPrototype.png)
+![ChatRoomPrototype](https://github.com/lonelydawn/chatroom/blob/master/documents/ChatRoomPrototype.png)
 
 [process on 链接地址](https://www.processon.com/view/5a7560d7e4b0615ac0498edc)
 
@@ -47,7 +47,7 @@
 
 ### 流程图
 
-![ChatRoomSystemConcept](.\ChatRoomSystemConcept.png)
+![ChatRoomSystemConcept](https://github.com/lonelydawn/chatroom/blob/master/documents/ChatRoomSystemConcept.png)
 
 [process on 链接地址](https://www.processon.com/view/5a792197e4b0874437bd3490)
 
@@ -59,7 +59,7 @@
 
 1. 打开页面时，客户端为用户分配随机用户名，并向服务端发送 open 消息
 
-   ```json
+   ```js
    // 消息格式
    {
      type: 'open',
@@ -125,7 +125,7 @@
 
 1. 用户输入并发送信息，客户端向服务端发送 message 消息
 
-   ```json
+   ```js
    // 消息格式
    {
      type: 'message',
@@ -152,7 +152,7 @@
 
 1. 用户修改用户名时，客户端向服务端发送 nickname 消息
 
-   ```json
+   ```js
    // 消息格式
    {
        type: 'nickname',
