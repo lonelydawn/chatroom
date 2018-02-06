@@ -4,15 +4,15 @@
 
 import $ from 'jquery'
 
-// get dom element
+// Get DOM element.
 let nickname = $('#nickname')
 let content = $('#content')
 let msg = $('#msg')
 let send = $('#send')
 let contact = $('#contact')
 
-// define Class Meiator
 const Mediator = function () {
+  // Parse data and render.
   let contactList = []
   let talkHistory = []
   let src = {}
@@ -57,6 +57,7 @@ const Mediator = function () {
     parseContactList()
   }
   const parseTalkHistory = function () {
+    content.empty()
     for (let talkRecord of talkHistory) {
       parseTalkRecord(talkRecord)
     }
@@ -71,6 +72,14 @@ const Mediator = function () {
     talkHistory = payload.talkHistory
     parseTalkHistory()
   }
+  const parseReload = function (payload) {
+    contactList = payload.contactList
+    dest = contactList.find(item => item.id === dest.id) || contactList[0]
+    parseContactList()
+
+    talkHistory = payload.talkHistory
+    parseTalkHistory()
+  }
   return {
     from () {
       return src
@@ -79,6 +88,7 @@ const Mediator = function () {
       return dest
     },
     parse (type, payload) {
+      // Dispatch actions by type.
       switch (type) {
         case 'load':
           parseLoad(payload)
@@ -92,12 +102,14 @@ const Mediator = function () {
         case 'lose':
           parseLoseContact(payload)
           break
+        case 'reload':
+          parseReload(payload)
       }
     }
   }
 }
 
-// generate name
+// Generate initial name.
 let firstLetter = 'ABCDFGHJKLMNPRST'
 let otherLetter = 'abcdefghijklmnopqrstuvwxyz'
 let length = 3 + Math.floor(Math.random() * 6)
@@ -108,10 +120,10 @@ for (let i = 0; i < length; i++) {
 }
 nickname.val(name)
 
-// declare object mediator
+// Declare object mediator.
 let mediator = new Mediator()
 
-// declare object ws
+// Define object ws.
 let ws = new WebSocket('ws://localhost:3001')
 ws.onopen = function () {
   ws.send(JSON.stringify({
@@ -120,10 +132,10 @@ ws.onopen = function () {
       name: name
     }
   }))
-  console.log('Websocket open!')
+  console.log('%c  %c | %cWebsocket open!', 'background-color: #41b883;', 'color: #333;', 'color: #888;')
 }
 ws.onclose = function () {
-  console.log('Websocket close!')
+  console.log('%c  %c | %cWebsocket close!', 'background-color: #41b883;', 'color: #333;', 'color: #888;')
 }
 ws.onmessage = function (e) {
   let {type, payload} = JSON.parse(e.data)
@@ -169,15 +181,23 @@ send.click(function () {
   msg.val('')
 })
 
+// Change nickname.
 let timer = {}
 nickname.keyup(function () {
   clearTimeout(timer)
   timer = setTimeout(() => {
-    // do sth
-    console.log($(this).val())
+    if (nickname !== '') {
+      ws.send(JSON.stringify({
+        type: 'nickname',
+        payload: {
+          id: mediator.from().id,
+          name: nickname.val()
+        }
+      }))
+    }
   }, 500)
 })
 window.onbeforeunload = function () {
-  // close websocket manually
+  // Close websocket manually, or it will interrupt the server.
   ws.close()
 }

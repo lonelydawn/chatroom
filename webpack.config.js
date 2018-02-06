@@ -55,6 +55,7 @@ module.exports = {
       title: 'Chat room',
       filename: './index.html',
       template: 'app/index.html',
+      favicon: 'favicon.ico',
       inject: 'body',
       hash: true
     })
