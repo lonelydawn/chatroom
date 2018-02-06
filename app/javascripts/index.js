@@ -4,7 +4,7 @@
 
 import $ from 'jquery'
 
-// Get DOM element.
+// get DOM element
 let nickname = $('#nickname')
 let content = $('#content')
 let msg = $('#msg')
@@ -12,7 +12,7 @@ let send = $('#send')
 let contact = $('#contact')
 
 const Mediator = function () {
-  // Parse data and render.
+  // Parse data, then render UI.
   let contactList = []
   let talkHistory = []
   let src = {}
@@ -88,7 +88,7 @@ const Mediator = function () {
       return dest
     },
     parse (type, payload) {
-      // Dispatch actions by type.
+      // dispatch actions
       switch (type) {
         case 'load':
           parseLoad(payload)
@@ -109,7 +109,7 @@ const Mediator = function () {
   }
 }
 
-// Generate initial name.
+// generate name
 let firstLetter = 'ABCDFGHJKLMNPRST'
 let otherLetter = 'abcdefghijklmnopqrstuvwxyz'
 let length = 3 + Math.floor(Math.random() * 6)
@@ -120,10 +120,10 @@ for (let i = 0; i < length; i++) {
 }
 nickname.val(name)
 
-// Declare object mediator.
+// declare mediator
 let mediator = new Mediator()
 
-// Define object ws.
+// define ws
 let ws = new WebSocket('ws://localhost:3001')
 ws.onopen = function () {
   ws.send(JSON.stringify({
@@ -132,6 +132,7 @@ ws.onopen = function () {
       name: name
     }
   }))
+  // rich text
   console.log('%c  %c | %cWebsocket open!', 'background-color: #41b883;', 'color: #333;', 'color: #888;')
 }
 ws.onclose = function () {
@@ -153,13 +154,14 @@ const getFormatTimestamp = function () {
 msg.keyup(function (e) {
   let keyCode = e.keyCode || e.which || e.charCode
   let ctrlKey = e.ctrlKey || e.metaKey
-  if (ctrlKey && keyCode === 13) {
+  let text = $(this).val()
+  if (ctrlKey && keyCode === 13 && text !== '') {
     ws.send(JSON.stringify({
       type: 'message',
       payload: {
         from: mediator.from(),
         to: mediator.to(),
-        msg: $(this).val(),
+        msg: text,
         timestamp: getFormatTimestamp()
       }
     }))
@@ -169,19 +171,22 @@ msg.keyup(function (e) {
   return false
 })
 send.click(function () {
-  ws.send(JSON.stringify({
-    type: 'message',
-    payload: {
-      from: mediator.from(),
-      to: mediator.to(),
-      msg: msg.val(),
-      timestamp: getFormatTimestamp()
-    }
-  }))
-  msg.val('')
+  let text = msg.val()
+  if (text !== '') {
+    ws.send(JSON.stringify({
+      type: 'message',
+      payload: {
+        from: mediator.from(),
+        to: mediator.to(),
+        msg: text,
+        timestamp: getFormatTimestamp()
+      }
+    }))
+    msg.val('')
+  }
 })
 
-// Change nickname.
+// change nickname
 let timer = {}
 nickname.keyup(function () {
   clearTimeout(timer)

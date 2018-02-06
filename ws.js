@@ -3,7 +3,7 @@
  */
 
 const Mediator = function () {
-  // State manage store.
+  // store
   let contactList = [
     {
       id: 0,
@@ -59,7 +59,7 @@ const wss = new WebSocket.Server({ port: 3001 })
 const mediator = new Mediator()
 
 wss.on('connection', function (ws) {
-  // Cite ws.
+  // cite ws
   const parseOpen = function ({name}) {
     mediator.parseOpen(name, function (params) {
       // Notify other clients to create contact item.
